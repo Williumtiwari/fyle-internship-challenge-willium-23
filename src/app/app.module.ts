@@ -1,8 +1,10 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { FormsModule } from '@angular/forms';
+import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
 
 import { AppComponent } from './app.component';
-import { HttpClientModule } from  '@angular/common/http';
+import { HttpClientModule } from '@angular/common/http';
 import { MainComponent } from './main/main.component';
 import { InputComponent } from './main/input/input.component';
 import { RepoListComponent } from './main/repo-list/repo-list.component';
@@ -26,13 +28,15 @@ import { ProfileLoaderComponent } from './main/profile-loader/profile-loader.com
     FooterComponent,
     PaginationComponent,
     RepoLoaderComponent,
-    ProfileLoaderComponent
+    ProfileLoaderComponent,
   ],
   imports: [
     BrowserModule,
-    HttpClientModule
+    FormsModule,
+    HttpClientModule,
+    NgxSkeletonLoaderModule,
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

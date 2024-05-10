@@ -1,1 +1,41 @@
-<p>repo-list works!</p>
+<div *ngIf="repos.length; else noRepo">
+  <ul class="flex flex-wrap gap-4 list-none">
+    <li *ngFor="let repo of repos" class="w-full">
+      <a
+        href="{{ repo.html_url }}"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="hover:no-underline"
+      >
+        <div
+          class="shadow-md p-4 cursor-pointer border rounded-md hover:border-black transition duration-300 ease-in-out"
+        >
+          <h3 class="text-xl font-semibold mb-2">
+            <img [src]="FileUrl" width="25px" alt="File" class="bg-white" />
+            {{ repo.name }}
+          </h3>
+          <p class="text-gray-500 text-sm mb-2">
+            {{ repo.created_at | date : "mediumDate" }}
+          </p>
+          <p class="mb-4">
+            {{ repo.description }}
+          </p>
+
+          <div class="flex flex-row justify-between">
+            <p>{{ repo.stargazers_count }} stars</p>
+            <div *ngIf="repo.language" class="flex">
+              <p class="text-gray-500 mr-2">Language:</p>
+              <span class="underline underline-offset-4 px-2">{{
+                repo.language
+              }}</span>
+            </div>
+          </div>
+        </div>
+      </a>
+    </li>
+  </ul>
+</div>
+
+<ng-template #noRepo>
+  <p>No repositories found.</p>
+</ng-template>

@@ -1,1 +1,24 @@
-<p>footer works!</p>
+<!--================================================================================
+                              Footer Component
+====================================================================================-->
+<div
+  class="flex justify-center items-center gap-3 w-full p-3.5 border-t border-black bg-white"
+>
+  <div>
+    <img
+      [src]="ImageUrl"
+      alt="img"
+      width="20px"
+      class="bg-none pointer-events-none animate-float-up-down"
+    />
+  </div>
+
+  <div>
+    <p id="copyright-text">
+      © {{ currentYear }} {{ appTitle }} - Copyright | Made by
+      <a class="cursor-pointer" target="_blank" [href]="developer.githubUrl">
+        {{ developer.name }}
+      </a>
+    </p>
+  </div>
+</div>

@@ -1,1 +1,25 @@
-<p>header works!</p>
+<!-- =======================================================================
+                       Header Component
+======================================================================= -->
+<header
+  class="w-full z-50 flex items-center justify-between fixed top-0 py-3 px-6 border-b border-black bg-white"
+>
+  <!-- Application Logo -->
+  <div class="flex items-center gap-2">
+    <div>
+      <img
+        [src]="ImageUrl"
+        alt="img"
+        width="20px"
+        class="bg-none pointer-events-none animate-float-up-down"
+      />
+    </div>
+
+    <!-- Application Brand name -->
+    <div class="text-xl font-semibold">
+      <h3>
+        {{ appTitle }}
+      </h3>
+    </div>
+  </div>
+</header>

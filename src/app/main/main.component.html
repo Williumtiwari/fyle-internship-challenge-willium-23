@@ -1,1 +1,114 @@
-<p>main works!</p>
+<!--=======================================================================
+                          Main Component
+======================================================================= -->
+<div class="w-full flex flex-col justify-center items-center">
+  <div
+    class="w-full mt-[50px] flex flex-col lg:flex-row items-center justify-evenly"
+  >
+    <!-- Left Column - User Input Form -->
+    <div
+      class="h-full w-full flex items-center justify-evenly pl-3 pr-3 lg:w-2/3 lg:pr-10 lg:pl-10"
+    >
+      <div class="pl-5 w-full h-full md:p-5 flex flex-col justify-evenly">
+        <!-- Welcome Message -->
+        <h1
+          class="font-semibold text-5xl pl-0 md:text-5xl lg:text-7xl lg:ml-8 md:ml-8 pr-0 mb-4"
+        >
+          Welcome to <span class="text-[#30363d]"> {{ appTitle }} </span>
+        </h1>
+
+        <!-- Description -->
+        <h1 class="font-bold text-3xl pl-8 pr-0 pt-6 mb-4">
+          Defining {{ appTitle }}!
+        </h1>
+        <p class="mt-4 text-lg pl-8 pt-0">
+          {{ appTitle }} offers a simple and effective means of finding and
+          perusing the wide range of projects housed on GitHub. You can use it
+          to look through every public repository owned by a specific GitHub
+          user. Type in the username to access a plethora of open-source
+          initiatives.
+        </p>
+
+        <!-- Search Prompt -->
+        <app-input (searchResult)="searchUser($event)"></app-input>
+      </div>
+    </div>
+
+    <!-- Right Column - Octocat Image -->
+    <div class="sm:w-0 hidden lg:block lg:w-1/3">
+      <div class="bg-none relative">
+        <img
+          [src]="ImageUrl"
+          alt="img"
+          width="75%"
+          class="bg-none pointer-events-none animate-translate-ease"
+        />
+      </div>
+    </div>
+  </div>
+</div>
+
+<div #searchResultSection id="#section-search-result">
+  <div *ngIf="searchClicked" class="w-full px-[90px] flex flex-row">
+    <div class="w-full lg:w-1/3 pr-8">
+      <!-- User profile -->
+      <h1
+        *ngIf="searchClicked"
+        class="font-bold text-2xl underline underline-offset-4"
+      >
+        User Profile:
+      </h1>
+
+      <ng-container *ngIf="loadingUser; else loadingUserFinish">
+        <app-profile-loader></app-profile-loader>
+      </ng-container>
+
+      <ng-template #loadingUserFinish>
+        <ng-container *ngIf="isValidUser; else userNotValid">
+          <!-- Display user profile if valid GitHub user -->
+          <app-github-profile
+            [searchedUser]="searchedUser"
+          ></app-github-profile>
+        </ng-container>
+
+        <!-- Display message if not a valid GitHub user -->
+        <ng-template #userNotValid>
+          <app-invalid-username></app-invalid-username>
+
+          <p *ngIf="searchClicked"></p>
+        </ng-template>
+      </ng-template>
+    </div>
+
+    <!-- Repo List -->
+    <div class="w-full lg:w-2/3">
+      <!-- Repositories section -->
+      <h1
+        *ngIf="searchClicked"
+        class="font-bold text-2xl underline underline-offset-4 mb-4"
+      >
+        User Repositories:
+      </h1>
+      <ng-container *ngIf="loadingRepo; else repoList">
+        <ng-container *ngFor="let i of [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]">
+          <app-repo-loader></app-repo-loader>
+        </ng-container>
+      </ng-container>
+
+      <ng-template #repoList>
+        <app-repo-list *ngIf="searchClicked" [repos]="repos"></app-repo-list>
+
+        <app-pagination
+          *ngIf="repos.length > 0"
+          [totalItems]="totalRepoCount"
+          [itemsPerPage]="perPage"
+          [currentPage]="currentPage"
+          [ReposPerPageOptions]="ReposPerPageOptions"
+          (pageChange)="updateCurrentPage($event)"
+          (itemsPerPageChange)="updateItemsPerPage($event)"
+        >
+        </app-pagination>
+      </ng-template>
+    </div>
+  </div>
+</div>

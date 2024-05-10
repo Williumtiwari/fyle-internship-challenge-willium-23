@@ -1,17 +1,20 @@
-import { Component, OnInit } from '@angular/core';
-import { ApiService } from './services/api.service';
+import { Component } from '@angular/core';
+import { Developer } from './data/DeveloperData';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
 })
-export class AppComponent implements OnInit{
-  constructor(
-    private apiService: ApiService
-  ) {}
+export class AppComponent {
+  // Application title
+  appTitle: string = 'GitHub info';
 
-  ngOnInit() {
-    this.apiService.getUser('johnpapa').subscribe(console.log);
-  }
+  // Current year for the footer
+  currentYear: number = new Date().getFullYear();
+
+  // Developer information
+  developer: Developer = {
+    name: 'Williumtiwari',
+    githubUrl: 'https://github.com/Williumtiwari',
+  };
 }

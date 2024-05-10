@@ -1,1 +1,41 @@
-<p>github-profile works!</p>
+<div class="w-full flex flex-col lg:items-start py-2 lg:py-12">
+  <div class="flex lg:block my-4 lg:my-0">
+    <img
+      class="w-20 md:w-20 lg:w-72 border mr-4 lg:my-8 mb-6 rounded-full self-center"
+      [src]="searchedUser?.avatar_url"
+      alt="Profile Image"
+    />
+    <div>
+      <p class="text-2xl font-semibold mb-2">{{ searchedUser?.name }}</p>
+      <p class="text-xl mb-2">
+        {{ searchedUser?.login }}
+      </p>
+    </div>
+  </div>
+  <div class="flex flex-col">
+    <p *ngIf="searchedUser?.bio" class="mb-4">{{ searchedUser?.bio }}</p>
+
+    <div class="flex items-center text-sm mb-2">
+      <img [src]="UserUrl" alt="User Icon" width="20px" class="mr-2" />
+      <p>
+        {{ searchedUser?.followers || 0 }}
+        <span>followers</span>
+      </p>
+      <span class="mx-2">•</span>
+      <p>
+        {{ searchedUser?.following || 0 }}
+        <span>following</span>
+      </p>
+    </div>
+
+    <div *ngIf="searchedUser?.location" class="flex items-center">
+      <img
+        [src]="ImageUrl"
+        alt="img"
+        width="20px"
+        class="bg-none pointer-events-none"
+      />
+      <span>{{ searchedUser?.location }}</span>
+    </div>
+  </div>
+</div>

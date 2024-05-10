@@ -1,1 +1,37 @@
-<p>pagination works!</p>
+<div
+  *ngIf="totalItems > 0"
+  class="flex items-center flex-col md:gap-10 md:flex-row justify-center p-4 rounded-md"
+>
+  <div>
+    <button
+      (click)="prevPage()"
+      [disabled]="currentPage === 1"
+      class="px-4 py-1 mx-2 rounded-md bg-white hover:bg-gradient-to-br from-slate-300 to-[#fefaf6] disabled:opacity-70 disabled:cursor-not-allowed border focus:outline-none"
+    >
+      Prev
+    </button>
+
+    <span>{{ currentPage }} / {{ getTotalPages() }}</span>
+
+    <button
+      (click)="nextPage()"
+      [disabled]="currentPage === getTotalPages()"
+      class="px-4 py-1 mx-2 bg-white hover:bg-gradient-to-br from-slate-300 to-[#fefaf6] rounded-md disabled:opacity-70 border disabled:cursor-not-allowed focus:outline-none"
+    >
+      Next
+    </button>
+  </div>
+
+  <div class="flex flex-row items-center gap-3 mt-6 md:mt-0">
+    <p>Items Per Page</p>
+    <select
+      [(ngModel)]="itemsPerPage"
+      (change)="itemsPerPageChange.emit(itemsPerPage)"
+      class="border rounded-md px-2 py-1.5 focus:outline-none"
+    >
+      <option *ngFor="let option of ReposPerPageOptions" [value]="option">
+        {{ option }}
+      </option>
+    </select>
+  </div>
+</div>
