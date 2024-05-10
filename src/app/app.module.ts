@@ -10,6 +10,9 @@ import { GithubProfileComponent } from './main/github-profile/github-profile.com
 import { InvalidUsernameComponent } from './main/invalid-username/invalid-username.component';
 import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
+import { PaginationComponent } from './main/pagination/pagination.component';
+import { RepoLoaderComponent } from './main/repo-loader/repo-loader.component';
+import { ProfileLoaderComponent } from './main/profile-loader/profile-loader.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +23,10 @@ import { FooterComponent } from './footer/footer.component';
     GithubProfileComponent,
     InvalidUsernameComponent,
     HeaderComponent,
-    FooterComponent
+    FooterComponent,
+    PaginationComponent,
+    RepoLoaderComponent,
+    ProfileLoaderComponent
   ],
   imports: [
     BrowserModule,
