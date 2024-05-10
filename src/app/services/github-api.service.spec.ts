@@ -24,7 +24,7 @@ describe('GithubApiService', () => {
   });
 
   afterEach(() => {
-    // Verify that there are no outstanding HTTP requests
+    // Verify if there are any outstanding HTTP requests
     httpMock.verify();
   });
 

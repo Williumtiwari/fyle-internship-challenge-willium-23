@@ -21,7 +21,7 @@ describe('HeaderComponent', () => {
 
   it('should have the application title in the template', () => {
     component.appTitle = 'GitHub info';
-    fixture.detectChanges(); // Trigger change detection
+    fixture.detectChanges(); // Change detection
     const compiled = fixture.nativeElement;
     expect(compiled.querySelector('h3').textContent).toContain('GitHub info');
   });

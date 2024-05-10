@@ -10,6 +10,7 @@ import { of } from 'rxjs';
 import { InputComponent } from './input/input.component';
 import { FormsModule } from '@angular/forms';
 
+// Provide the implementation for the MainComponent
 const githubServiceMock = {
   getUserInfo: () => of({ public_repos: 5 } as any),
   getUserRepos: () => of([{ name: 'Repo 1' }, { name: 'Repo 2' }] as any),

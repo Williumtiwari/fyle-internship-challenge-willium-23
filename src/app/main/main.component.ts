@@ -12,11 +12,12 @@ export class MainComponent {
 
   @ViewChild('searchResultSection', { static: false })
   searchResultSection: ElementRef | null = null;
-
+  // App Logo
   ImageUrl: string = '/assets/Github.svg';
-
+  // Input Property for Username
   username: string = '';
 
+  // State Properties
   repos: any[] = [];
   totalRepoCount: number = 0;
   currentPage: number = 1;
@@ -36,15 +37,20 @@ export class MainComponent {
     this.searchedUser = undefined;
   }
 
+  // Loading Indicators
   loadingRepo: boolean = false;
   loadingUser: boolean = false;
 
+  // Options for items per page
   ReposPerPageOptions: number[] = [10, 50, 100];
 
+  // Constructor to inject the GithubApiService
   constructor(private githubService: GithubApiService) {}
 
+  // Cache for searched results
   private resultCache: { [key: string]: any[] } = {};
 
+  // Check if data is present in cache
   private isDataInCache(
     username: string,
     page: number,
@@ -54,6 +60,7 @@ export class MainComponent {
     return this.resultCache.hasOwnProperty(key);
   }
 
+  // Retrieve Data from cache
   private getDataFromCache(
     username: string,
     page: number,
@@ -63,6 +70,7 @@ export class MainComponent {
     return this.resultCache[key];
   }
 
+  // Store Data in Cache
   private setDataInCache(
     username: string,
     page: number,
@@ -83,8 +91,10 @@ export class MainComponent {
     if (this.username.length) {
       this.searchClicked = true;
 
+      // Reset state before initiating a new search
       this.resetState();
 
+      // Initiates user details and repositories search
       this.searchUserDetails();
       this.searchUserRepositories();
     } else {
@@ -99,12 +109,14 @@ export class MainComponent {
     this.loadingUser = true;
     this.githubService.getUserInfo(this.username).subscribe({
       next: (user: GitHubUser) => {
+        // Update User data after getting from Github API
         this.totalRepoCount = user.public_repos;
         this.searchedUser = user;
         this.isValidUser = true;
         this.loadingUser = false;
       },
       error: (error) => {
+        // Error Handling
         this.isValidUser = false;
         this.loadingUser = false;
         console.error('Error loading user details:', error);
@@ -117,8 +129,10 @@ export class MainComponent {
    * @brief Retrieves user repositories from the GitHub service.
    */
   searchUserRepositories(): void {
+    // Check if the repo data id in cache
     if (this.isDataInCache(this.username, this.currentPage, this.perPage)) {
       this.repos = this.getDataFromCache(
+        // Retrieve repo data from cache
         this.username,
         this.currentPage,
         this.perPage
@@ -126,15 +140,18 @@ export class MainComponent {
       this.loadingRepo = false;
       this.scrollToSearchResult();
     } else {
+      // Data not found in cache make api call
       this.loadingRepo = true;
       this.githubService
         .getUserRepos(this.username, this.currentPage, this.perPage)
         .subscribe({
           next: (repos) => {
+            // Update Data after getting from API Call
             this.repos = repos;
             this.loadingRepo = false;
             this.scrollToSearchResult();
 
+            // Cache Updated for future results
             this.setDataInCache(
               this.username,
               this.currentPage,
@@ -143,6 +160,7 @@ export class MainComponent {
             );
           },
           error: (error) => {
+            // Error handling
             this.repos = [];
             this.isValidUser = false;
             this.loadingRepo = false;
@@ -154,10 +172,12 @@ export class MainComponent {
     }
   }
 
+  // Private method for handling errors
   private handleError(errorMessage: string): void {
     console.log(errorMessage);
   }
 
+  // Smooth Scrolling
   private scrollToSearchResult(): void {
     if (this.searchResultSection && this.searchResultSection.nativeElement) {
       this.searchResultSection.nativeElement.scrollIntoView({

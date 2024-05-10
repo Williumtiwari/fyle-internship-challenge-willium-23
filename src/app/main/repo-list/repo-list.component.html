@@ -1,5 +1,8 @@
+<!-- Display repos in the page if found else show message -->
 <div *ngIf="repos.length; else noRepo">
+  <!-- List of Repos -->
   <ul class="flex flex-wrap gap-4 list-none">
+    <!-- Iterating using for loop -->
     <li *ngFor="let repo of repos" class="w-full">
       <a
         href="{{ repo.html_url }}"
@@ -35,7 +38,7 @@
     </li>
   </ul>
 </div>
-
+<!-- Else message to display -->
 <ng-template #noRepo>
   <p>No repositories found.</p>
 </ng-template>
